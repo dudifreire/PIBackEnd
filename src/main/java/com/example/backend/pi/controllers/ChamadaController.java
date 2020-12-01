@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.backend.pi.models.Aluno;
+import com.example.backend.pi.models.AlunoChamada;
 import com.example.backend.pi.models.Chamada;
 import com.example.backend.pi.repositorys.AlunoRepository;
 import com.example.backend.pi.repositorys.ChamadaRepository;
+import com.example.backend.pi.repositorys.ListChamadaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,23 +27,36 @@ public class ChamadaController {
     private final ChamadaRepository chamadaRepository;
     @Autowired
     private final AlunoRepository alunoRepository;
+    @Autowired
+    private final ListChamadaRepository listChamadaRepository;
     
-    ChamadaController(ChamadaRepository chamadaRepository, AlunoRepository alunoRepository) {
+    ChamadaController(ChamadaRepository chamadaRepository, AlunoRepository alunoRepository,ListChamadaRepository listChamadaRepository ) {
         this.chamadaRepository = chamadaRepository;
         this.alunoRepository = alunoRepository;
+        this.listChamadaRepository = listChamadaRepository;
     } 
     
     @CrossOrigin(origins = "*")
     @PostMapping("/chamadas")
     Chamada novaChamada(@RequestBody Chamada chamada) {
      //   Aluno OriginalAluno = new Aluno(OriginalAluno.getId(), OriginalAluno.getNome(), OriginalAluno.getPresente());
-
+       
        // ArrayList<Aluno> chamadaAluno = new ArrayList<>();
+       ArrayList<AlunoChamada> chamadaAluno = new ArrayList<>();
+       
        for (Aluno aluno : chamada.getAluno()) {
-            System.out.println(aluno.getPresente());
-           alunoRepository.chamadaUpdate(aluno.getId(),aluno.getPresente());
-        }
+        AlunoChamada listChamada = new AlunoChamada();
+        listChamada.setAlunoId(aluno.getId());
+        listChamada.setAlunoPresente(aluno.getPresente());
+        listChamada.setAlunoNome(aluno.getNome());
+        listChamada.setTimestamp(chamada.getData());
+        listChamadaRepository.save(listChamada);
+        chamadaAluno.add(new AlunoChamada(listChamada.getListChamadaId(), aluno.getId(),aluno.getNome(),aluno.getPresente(),chamada.getData())); 
         
+        
+        
+    }   
+        chamada.setListChamada(chamadaAluno);
         return chamadaRepository.save(chamada);
     }
     public Aluno returnAluno(Aluno aluno) {

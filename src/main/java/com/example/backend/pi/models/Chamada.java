@@ -44,6 +44,12 @@ public class Chamada implements Serializable {
        inverseJoinColumns = @JoinColumn(name = "aluno_id"))
     private List<Aluno> aluno;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "list_chamada_aluno",
+       joinColumns = @JoinColumn(name = "chamada_id"),
+       inverseJoinColumns = @JoinColumn(name = "ListChamada_id"))
+    private List<AlunoChamada> listChamada;
+
     @Column(name = "chamada_professor")
     private String professor;
 
@@ -109,6 +115,14 @@ public class Chamada implements Serializable {
     public String toString() {
         return "Chamada [aluno=" + aluno + ", data=" + data + ", id=" + id + ", obs=" + obs + ", professor=" + professor
                 + "]";
+    }
+
+    public List<AlunoChamada> getListChamada() {
+        return listChamada;
+    }
+
+    public void setListChamada(List<AlunoChamada> listChamada) {
+        this.listChamada = listChamada;
     }
 
 }
