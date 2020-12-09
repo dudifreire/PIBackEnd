@@ -43,15 +43,18 @@ public class ChamadaController {
        
        // ArrayList<Aluno> chamadaAluno = new ArrayList<>();
        ArrayList<AlunoChamada> chamadaAluno = new ArrayList<>();
-       
+       System.out.println(chamada);
        for (Aluno aluno : chamada.getAluno()) {
+           
         AlunoChamada listChamada = new AlunoChamada();
         listChamada.setAlunoId(aluno.getId());
         listChamada.setAlunoPresente(aluno.getPresente());
         listChamada.setAlunoNome(aluno.getNome());
         listChamada.setTimestamp(chamada.getData());
+        listChamada.setAlunoCategoria(aluno.getCategoria());
+        System.out.println(aluno.getCategoria());
         listChamadaRepository.save(listChamada);
-        chamadaAluno.add(new AlunoChamada(listChamada.getListChamadaId(), aluno.getId(),aluno.getNome(),aluno.getPresente(),chamada.getData())); 
+        chamadaAluno.add(new AlunoChamada(listChamada.getListChamadaId(), aluno.getId(),aluno.getNome(),aluno.getPresente(),chamada.getData(),aluno.getCategoria())); 
         
         
         

@@ -53,6 +53,9 @@ public class Chamada implements Serializable {
     @Column(name = "chamada_professor")
     private String professor;
 
+    @Column(name = "chamada_categoria")
+    private String categoria;
+
     @Column(name = "chamada_data")
     private String data;
 
@@ -123,6 +126,14 @@ public class Chamada implements Serializable {
 
     public void setListChamada(List<AlunoChamada> listChamada) {
         this.listChamada = listChamada;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
 }

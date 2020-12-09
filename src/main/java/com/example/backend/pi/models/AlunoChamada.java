@@ -40,6 +40,9 @@ public class AlunoChamada implements Serializable {
     
     @Column(name = "ListChamada_alunoPresente")
     public String alunoPresente;
+
+    @Column(name = "ListChamada_alunoCategoria")
+    public String alunoCategoria;
     
     @Column(name = "ListChamada_timestamp")
     public String timestamp;
@@ -72,12 +75,13 @@ public class AlunoChamada implements Serializable {
     }
     
 
-    public AlunoChamada(Long listchamadaId, Long alunoId, String alunoNome, String alunoPresente, String timestamp) {
+    public AlunoChamada(Long listchamadaId, Long alunoId, String alunoNome, String alunoPresente, String timestamp, String alunoCategoria) {
         this.ListchamadaId = listchamadaId;
         this.alunoId = alunoId;
         this.alunoNome = alunoNome;
         this.alunoPresente = alunoPresente;
         this.timestamp = timestamp;
+        this.alunoCategoria = alunoCategoria;
     }
 
     public static long getSerialversionuid() {
@@ -108,6 +112,18 @@ public class AlunoChamada implements Serializable {
     public String toString() {
         return "AlunoChamada [ListchamadaId=" + ListchamadaId + ", alunoId=" + alunoId + ", alunoNome=" + alunoNome
                 + ", alunoPresente=" + alunoPresente + ", timestamp=" + timestamp + "]";
+    }
+
+    public Long getAlunoId() {
+        return alunoId;
+    }
+
+    public String getAlunoCategoria() {
+        return alunoCategoria;
+    }
+
+    public void setAlunoCategoria(String alunoCategoria) {
+        this.alunoCategoria = alunoCategoria;
     }
     
     
